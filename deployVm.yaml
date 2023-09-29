@@ -15,7 +15,8 @@ spec:
   vmMetadata:
     configMapName: user-data-photon
     transport: CloudInit
----apiVersion: vmoperator.vmware.com/v1alpha1
+---
+apiVersion: vmoperator.vmware.com/v1alpha1
 kind: VirtualMachine
 metadata:
   name: photon-vm2
