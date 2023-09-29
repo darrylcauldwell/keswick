@@ -1,3 +1,11 @@
+Run python flask app
+
+```bash
+python app.py
+```
+
+It should then be accessible at http://localhost:5000
+
 Build the Docker image from the Dockerfile in your project directory:
 
 ```bash
