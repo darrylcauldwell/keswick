@@ -1,7 +1,7 @@
 Run python flask app
 
 ```bash
-python app.py
+python3 app.py
 ```
 
 It should then be accessible at http://localhost:5000
