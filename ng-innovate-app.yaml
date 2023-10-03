@@ -1,0 +1,90 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ng-innovate-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:latest
+          ports:
+            - containerPort: 5432
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ng-innovate-db
+spec:
+  selector:
+    app: postgres
+  ports:
+    - protocol: TCP
+      port: 5432
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ng-innovate-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ng-innovate-ui
+  template:
+    metadata:
+      labels:
+        app: ng-innovate-ui
+    spec:
+      containers:
+        - name: ng-innovate-ui-plum-container
+          image: ghcr.io/darrylcauldwell/ng-innovate-ui:plum
+          ports:
+            - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ng-innovate-ui
+spec:
+  selector:
+    app: ng-innovate-ui
+  ports:
+    - protocol: TCP
+      port: 80
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ng-innovate-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ng-innovate-app
+  template:
+    metadata:
+      labels:
+        app: ng-innovate-app
+    spec:
+      containers:
+        - name: ng-innovate-app-container
+          image: ghcr.io/darrylcauldwell/ng-innovate-app:latest
+          ports:
+            - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ng-innovate-app
+spec:
+  selector:
+    app: ng-innovate-app
+  ports:
+    - protocol: TCP
+      port: 4000
