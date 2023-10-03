@@ -32,9 +32,13 @@ This will pull the latest PostgreSQL image, create a container named "ng-innovat
 ### Create and run app API micro service
 
 ```bash
-cd ./app
-docker build . -t dcauldwell/ng-innovate-app:0.0
-docker run --network ng-innovate-net --name ng-innovate-app -d -p 4000:5000 dcauldwell/ng-innovate-app:0.0
+cd ../app
+#docker build . -t dcauldwell/ng-innovate-app:0.0
+export CR_PAT=<personal access token>
+echo $CR_PAT | docker login ghcr.io -u darrylcauldwell --password-stdin        
+docker login ghcr.io -u darrylcauldwell --password-stdin
+docker buildx build --platform linux/amd64,linux/arm64 . --tag ghcr.io/darrylcauldwell/ng-innovate-app:latest --push
+docker run --network ng-innovate-net --name ng-innovate-app -d -p 4000:5000 ghcr.io/darrylcauldwell/ng-innovate-app:latest
 ```
 
 This will create an image, create a container named "ng-innovate-app" and expose internal port 5000 as external port 4000 for API connections.
@@ -60,9 +64,10 @@ docker run -it --entrypoint=/bin/bash ng-innovate-app /bin/bash
 ### Create and run app UI micro service
 
 ```bash
-cd ./ui
-docker build . -t dcauldwell/ng-innovate-ui:0.0
-docker run --network ng-innovate-net --name ng-innovate-ui -d -p 4001:5000 dcauldwell/ng-innovate-ui:0.0
+cd ../ui
+#docker build . -t dcauldwell/ng-innovate-ui:0.0
+docker buildx build --platform linux/amd64,linux/arm64 . --tag ghcr.io/darrylcauldwell/ng-innovate-ui:plum --push
+docker run --network ng-innovate-net --name ng-innovate-ui -d -p 4001:5000 ghcr.io/darrylcauldwell/ng-innovate-ui:plum
 ```
 
 Retrieve the UI:
