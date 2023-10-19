@@ -30,5 +30,5 @@ echo $CR_PAT | docker login ghcr.io -u darrylcauldwell --password-stdin
 docker login ghcr.io -u darrylcauldwell --password-stdin
 docker buildx build --platform linux/amd64,linux/arm64 . --tag ghcr.io/darrylcauldwell/ng-innovate-cv-app:latest --push
 docker pull ghcr.io/darrylcauldwell/ng-innovate-cv-app:latest
-docker run --network ng-innovate-net --name ng-innovate-cv-app --device /dev/video0:/dev/video0 -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY -d -p 4000:5000 ghcr.io/darrylcauldwell/ng-innovate-cv-app:latest
+docker run --network ng-innovate-net --name ng-innovate-cv-app -d -p 4000:5000 ghcr.io/darrylcauldwell/ng-innovate-cv-app:latest
 ```

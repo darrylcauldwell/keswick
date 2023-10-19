@@ -1,0 +1,16 @@
+<body style="font-family: Arial; background-color: #223399">
+    <div class="container">
+        <div class="row">
+            <div align="center" class="col-lg-8  offset-lg-2">
+                <h1 class="mt-5">National Grid Innovation Day 2023</h1>
+                <h1 class="mt-5">Edge AI: Computer Vision</h1>
+                <form method="post" action="{{ url_for('tasks') }}">
+                <input type="submit" value="Face Only" name="face" />
+                </form>
+                <img src="{{ url_for('video_feed') }}" height="80%">
+                <h1></h1>
+                <img src="{{ url_for('static', filename='image.jpg') }}" alt="Electricity Transmission">
+            </div>
+        </div>
+    </div>
+    </body>
