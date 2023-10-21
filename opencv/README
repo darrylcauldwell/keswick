@@ -1,0 +1,30 @@
+# OpenCV base container
+
+A base python container with opencv and python flask.
+
+https://opencv.org/
+
+## Build
+
+```bash
+export CR_PAT=<personal access token>
+echo $CR_PAT | docker login ghcr.io -u darrylcauldwell --password-stdin        
+docker buildx build --platform linux/amd64,linux/arm64 . --tag ghcr.io/darrylcauldwell/opencv:latest --push
+docker pull ghcr.io/darrylcauldwell/opencv:latest
+docker run -it --name opencv -d ghcr.io/darrylcauldwell/opencv:latest
+```
+
+## Test an RTSP stream can be captured
+
+```bash
+import cv2
+rtsp_url = 'rtsp://darryl:cauldwell@192.168.188.2/stream2'
+cap = cv2.VideoCapture(rtsp_url)
+
+if not cap.isOpened():
+    print("Failed to open RTSP stream.")
+else:
+    print("RTSP stream opened successfully.")
+
+cap.release()
+```

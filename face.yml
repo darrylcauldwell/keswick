@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: innovate
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: face-deployment
+  namespace: innovate
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: face
+  template:
+    metadata:
+      labels:
+        app: face
+    spec:
+      containers:
+      - name: face-container
+        image: ghcr.io/darrylcauldwell/face:latest
+        ports:
+        - containerPort: 5000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: face-service
+  namespace: innovate
+spec:
+  selector:
+    app: face
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000
+  type: LoadBalancer

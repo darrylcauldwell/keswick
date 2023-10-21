@@ -26,7 +26,9 @@ net = cv2.dnn.readNetFromCaffe('./saved_model/deploy.prototxt.txt', './saved_mod
 #instatiate flask app  
 app = Flask(__name__, template_folder='./templates')
 
-camera = cv2.VideoCapture(0)
+#camera = cv2.VideoCapture(0)
+camera = cv2.VideoCapture('rtsp://camera:password@192.168.188.2/stream2', cv2.CAP_FFMPEG)
+
 
 def record(out):
     global rec_frame
@@ -129,7 +131,7 @@ def tasks():
                 cv2.destroyAllWindows()
                 
             else:
-                camera = cv2.VideoCapture('rtsp://camera:password@192.168.1.127/stream2')
+                camera = cv2.VideoCapture('rtsp://camera:password@192.168.188.2/stream2')
                 switch=1
         elif  request.form.get('rec') == 'Start/Stop Recording':
             global rec, out
