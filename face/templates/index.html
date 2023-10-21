@@ -1,13 +1,29 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-  <div align="center" class="col-lg-8  offset-lg-2"></div>
-    <head>
-      <title>Edge AI Computer Vision</title>
-    </head>
-    <body style="font-family: Arial; background-color: #0abf53">
+  <head>
+    <title>Edge AI Computer Vision</title>
+    <style>
+      body {
+        font-family: Arial;
+        background-color: #0abf53;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+      .content {
+        text-align: center;
+      }
+      img {
+        width: 80%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content col-lg-8 offset-lg-2">
       <h1>Edge AI Computer Vision</h1>
-      <img src="{{ url_for('video_feed') }}" height="80%">
-    </body>
-  </div>
+      <img src="{{ url_for('video_feed') }}">
+    </div>
+  </body>
 </html>
-
