@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: face-container
-        image: ghcr.io/darrylcauldwell/face:blue
+        image: ghcr.io/darrylcauldwell/face:green
         ports:
         - containerPort: 5000
 
