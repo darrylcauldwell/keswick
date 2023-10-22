@@ -33,7 +33,7 @@ metadata:
   namespace: face-detector
 spec:
   selector:
-    app: face
+    app: face-detector
   ports:
     - protocol: TCP
       port: 80
