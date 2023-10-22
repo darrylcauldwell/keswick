@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>National Grid Innovation Day 2023</title>
+</head>
+<!Colours: Plum #701c1c Mouse #6e5f57 Teal #008080>
+<body style="font-family: Arial; background-color: #701c1c">
+    <h1>National Grid Innovation Day 2023</h1>
+    <ul>
+        {% for user in users %}
+        <li>{{ user.username }}</li>
+        {% endfor %}
+    </ul>
+    <p><a href="/">Back to Home</a></p>
+    <img src="{{ url_for('static', filename='image.jpg') }}" alt="Image">
+</body>
+</html>
