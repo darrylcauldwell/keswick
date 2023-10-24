@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: face-detector-container
-        image: ghcr.io/darrylcauldwell/face-detector:green
+        image: ghcr.io/darrylcauldwell/face-detector:pink
         ports:
         - containerPort: 5000
 
