@@ -25,8 +25,8 @@ spec:
         ports:
         - containerPort: 5000
         env:
-        - name: 'RTSP_URL'
-          value: 'rtsp://darryl:cauldwell@192.168.188.6/stream2'
+        - name: RTSP_URL
+          value: rtsp://darryl:cauldwell@192.168.188.6/stream2
 ---
 apiVersion: v1
 kind: Service
