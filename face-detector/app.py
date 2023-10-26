@@ -20,7 +20,10 @@ def detect_faces(frame):
     return frame
 
 def generate_frames():
-    rtsp_url = 'rtsp://darryl:cauldwell@192.168.188.3/stream2'
+    # Get the RTSP URL from the environment variable
+    rtsp_url = os.getenv("RTSP_URL")
+
+    #rtsp_url = 'rtsp://darryl:cauldwell@192.168.188.3/stream2'
     cap = cv2.VideoCapture(rtsp_url)
 
     if not cap.isOpened():
