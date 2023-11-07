@@ -27,6 +27,7 @@ spec:
         env:
         - name: RTSP_URL
           value: rtsp://darryl:cauldwell@192.168.188.2/stream2
+        imagePullPolicy: Always
 ---
 apiVersion: v1
 kind: Service
