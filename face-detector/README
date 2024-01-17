@@ -10,9 +10,9 @@ https://opencv.org/
 export CR_PAT=<personal access token>
 echo $CR_PAT | docker login ghcr.io -u darrylcauldwell --password-stdin        
 docker buildx build --platform linux/amd64,linux/arm64 . --tag ghcr.io/darrylcauldwell/face-detector:latest --push
-docker buildx build --platform linux/amd64,linux/arm64 . --tag ghcr.io/darrylcauldwell/face-detector:green --push
+docker buildx build --platform linux/amd64,linux/arm64 . --tag ghcr.io/darrylcauldwell/face-detector:purple --push
 
-docker pull ghcr.io/darrylcauldwell/face-detector:green
+docker pull ghcr.io/darrylcauldwell/face-detector:purple
 docker run --name face-detector -d -p 4000:5000  ghcr.io/darrylcauldwell/face-detector:green
 ```
 
