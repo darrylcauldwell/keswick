@@ -3,7 +3,7 @@
 Project Keswick Tech Showcase
 
 ```url
-https://keswick.showcase.vmware.com/ 
+https://veco929-kiad1.velocloud.net
 ```
 
 The ESXi root password should be specified in the KS.cfg file.
