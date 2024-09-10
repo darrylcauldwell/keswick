@@ -5,12 +5,12 @@ metadata:
 spec:
   hardware:
     cpus: 1
-    memory: 2Gi
+    memory: 1Gi
   policies:
     resources:
       requests:
         cpu: 1
-        memory: 2Gi
+        memory: 1Gi
   configSpec:
     _typeName: VirtualMachineConfigSpec
     latencySensitivity:
