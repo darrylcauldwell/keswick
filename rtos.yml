@@ -4,13 +4,13 @@ metadata:
   name: rtos
 spec:
   hardware:
-    cpus: 4
-    memory: 8Gi
+    cpus: 2
+    memory: 4Gi
   policies:
     resources:
       requests:
-        cpu: 4
-        memory: 8Gi
+        cpu: 2
+        memory: 4Gi
   configSpec:
     _typeName: VirtualMachineConfigSpec
     latencySensitivity:
