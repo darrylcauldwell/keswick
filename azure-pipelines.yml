@@ -9,11 +9,11 @@ resources:
 - repo: self
 
 variables:
-  tag: ghcr.io/darrylcauldwell/face-detector:latest, ghcr.io/darrylcauldwell/face-detector:pipeline
+  tag: 'ghcr.io/darrylcauldwell/face-detector:latest, ghcr.io/darrylcauldwell/face-detector:pipeline'
 
 stages:
-- stage: Build x86 container
-  displayName: Build image
+- stage: Build
+  displayName: Buildimage
   jobs:
   - job: Build
     displayName: Build
@@ -21,7 +21,7 @@ stages:
       vmImage: ubuntu-latest
     steps:
     - task: Docker@2
-      displayName: Build an x86 image
+      displayName: Buildimage
       inputs:
         command: build
         dockerfile: '$(Build.SourcesDirectory)/face-detector/Dockerfile'
