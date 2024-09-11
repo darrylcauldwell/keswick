@@ -1,20 +1,24 @@
-trigger:
-- main
+trigger: none
 
 resources:
-- repo: self
-
-variables:
-  tag: 'ghcr.io/darrylcauldwell/face-detector:latest,ghcr.io/darrylcauldwell/face-detector:pipeline'
+  containers:
+  - container: face-detector
+    type: ghcr
+    connection: github-connection
+    image: darrylcauldwell/face-detector
+    trigger: 
+      tags:
+        include:
+        - "*"
 
 pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: Docker@2
-  displayName: 'Build Docker image'
-  inputs:
-    command: build
-    dockerfile: '$(Build.SourcesDirectory)/face-detector/Dockerfile'
-    tags: |
-      $(tag)
+- script: |
+    echo "New version of face-detector image detected"
+    echo "Image: $(resources.containers.face-detector.image)"
+    echo "Tag: $(resources.containers.face-detector.tag)"
+  displayName: 'Print image info'
+
+
