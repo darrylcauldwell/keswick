@@ -13,5 +13,7 @@ steps:
       repository: 'darrylcauldwell/keswick'
       command: 'buildAndPush'
       Dockerfile: '**/Dockerfile'
-
+      tags: |
+        azureDevOps:latest
+        azureDevOps:$(Build.BuildId)
 
