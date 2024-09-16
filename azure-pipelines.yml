@@ -1,8 +1,12 @@
-- task: Docker@2
-  inputs:
-    containerRegistry: 'darrylcauldwell GHCR'
-    repository: 'darrylcauldwell/keswick'
-    command: 'buildAndPush'
-    Dockerfile: '**/Dockerfile'
+trigger:
+  - main
+
+steps:
+  - task: Docker@2
+    inputs:
+      containerRegistry: 'darrylcauldwell GHCR'
+      repository: 'darrylcauldwell/keswick'
+      command: 'buildAndPush'
+      Dockerfile: '**/Dockerfile'
 
 
