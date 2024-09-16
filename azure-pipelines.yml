@@ -1,24 +1,8 @@
-trigger: none
-
-resources:
-  containers:
-  - container: face-detector
-    type: ghcr
-    connection: github-connection
-    image: darrylcauldwell/face-detector
-    trigger: 
-      tags:
-        include:
-        - "*"
-
-pool:
-  vmImage: ubuntu-latest
-
-steps:
-- script: |
-    echo "New version of face-detector image detected"
-    echo "Image: $(resources.containers.face-detector.image)"
-    echo "Tag: $(resources.containers.face-detector.tag)"
-  displayName: 'Print image info'
+- task: Docker@2
+  inputs:
+    containerRegistry: 'darrylcauldwell GHCR'
+    repository: 'darrylcauldwell/keswick'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
 
 
