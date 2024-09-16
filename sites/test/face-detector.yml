@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: face-detector
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: face-detector-deployment
+  namespace: face-detector
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: face-detector
+  template:
+    metadata:
+      labels:
+        app: face-detector
+    spec:
+      containers:
+      - name: face-detector-container
+        image: ghcr.io/darrylcauldwell/face-detector:blue
+        ports:
+        - containerPort: 5000
+        env:
+        - name: RTSP_URL
+          value: rtsp://darryl:cauldwell@192.168.1.127/stream2
+        imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: face-detector-service
+  namespace: face-detector
+spec:
+  selector:
+    app: face-detector
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000
+  type: LoadBalancer
