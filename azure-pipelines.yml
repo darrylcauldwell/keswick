@@ -1,6 +1,11 @@
 trigger:
   - main
 
+pool:
+  name: Default
+  demands:
+    - agent.name -equals Darryls-MacBook-Pro
+    
 steps:
   - task: Docker@2
     inputs:
