@@ -49,6 +49,7 @@ stages:
   displayName: 'Approve QA Update'
   jobs:
   - job: ApproveQA
+    pool: server
     steps:
     - task: ManualValidation@0
       timeoutInMinutes: 1440 # Task times out in 1 day
@@ -77,6 +78,7 @@ stages:
   displayName: 'Approve UAT Update'
   jobs:
   - job: ApproveUAT
+    pool: server
     steps:
     - task: ManualValidation@0
       timeoutInMinutes: 1440 # Task times out in 1 day
