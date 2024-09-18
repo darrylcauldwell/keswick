@@ -38,7 +38,7 @@ stages:
     - checkout: self
       persistCredentials: true
     - script: |
-        git pull
+        git pull origin main
         yq e '.spec.template.spec.containers[0].image = "ghcr.io/darrylcauldwell/keswick:$(Build.BuildId)"' -i $(Build.SourcesDirectory)/sites/manchester/face-detector.yml
         git add $(Build.SourcesDirectory)/sites/manchester/face-detector.yml
         git commit -m "Update QA manifest ref $(Build.BuildId) [skip ci]"
@@ -53,7 +53,7 @@ stages:
     - checkout: self
       persistCredentials: true
     - script: |
-        git pull
+        git pull origin main
         yq e '.spec.template.spec.containers[0].image = "ghcr.io/darrylcauldwell/keswick:$(Build.BuildId)"' -i $(Build.SourcesDirectory)/sites/sheffield/face-detector.yml
         git add $(Build.SourcesDirectory)/sites/sheffield/face-detector.yml
         git commit -m "Update UAT manifest ref $(Build.BuildId) [skip ci]"
@@ -68,7 +68,7 @@ stages:
     - checkout: self
       persistCredentials: true
     - script: |
-        git pull
+        git pull origin main
         yq e '.spec.template.spec.containers[0].image = "ghcr.io/darrylcauldwell/keswick:$(Build.BuildId)"' -i $(Build.SourcesDirectory)/sites/bakewell/face-detector.yml
         git add $(Build.SourcesDirectory)/sites/bakewell/face-detector.yml
         git commit -m "Update PROD manifest ref $(Build.BuildId) [skip ci]"
