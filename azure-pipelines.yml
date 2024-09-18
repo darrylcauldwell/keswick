@@ -33,10 +33,12 @@ stages:
   displayName: 'Update Manchester QA environment'
   jobs:
   - job: UpdateQA
+    displayName: 'Updating Manchester QA environment manifest file'
     steps:
     - checkout: self
       persistCredentials: true
     - script: |
+        git pull
         yq e '.spec.template.spec.containers[0].image = "ghcr.io/darrylcauldwell/keswick:$(Build.BuildId)"' -i $(Build.SourcesDirectory)/sites/manchester/face-detector.yml
         git add $(Build.SourcesDirectory)/sites/manchester/face-detector.yml
         git commit -m "Update QA manifest ref $(Build.BuildId) [skip ci]"
@@ -44,13 +46,14 @@ stages:
       displayName: 'Update QA manifest'
 
 - stage: Update_Test_Environment
-  displayName: 'Update Sheffield UAT environment'
+  displayName: 'Updating Sheffield UAT environment manifest file'
   jobs:
   - job: UpdateUAT
     steps:
     - checkout: self
       persistCredentials: true
     - script: |
+        git pull
         yq e '.spec.template.spec.containers[0].image = "ghcr.io/darrylcauldwell/keswick:$(Build.BuildId)"' -i $(Build.SourcesDirectory)/sites/sheffield/face-detector.yml
         git add $(Build.SourcesDirectory)/sites/sheffield/face-detector.yml
         git commit -m "Update UAT manifest ref $(Build.BuildId) [skip ci]"
@@ -58,13 +61,14 @@ stages:
       displayName: 'Update UAT manifest'
 
 - stage: Update_Prod_Environment
-  displayName: 'Update Bakewell production environment'
+  displayName: 'Update Bakewell production environment manifest file'
   jobs:
   - job: UpdateProd
     steps:
     - checkout: self
       persistCredentials: true
     - script: |
+        git pull
         yq e '.spec.template.spec.containers[0].image = "ghcr.io/darrylcauldwell/keswick:$(Build.BuildId)"' -i $(Build.SourcesDirectory)/sites/bakewell/face-detector.yml
         git add $(Build.SourcesDirectory)/sites/bakewell/face-detector.yml
         git commit -m "Update PROD manifest ref $(Build.BuildId) [skip ci]"
