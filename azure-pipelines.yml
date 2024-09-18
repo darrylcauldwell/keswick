@@ -33,7 +33,7 @@ stages:
   displayName: 'Update Manchester QA environment'
   jobs:
   - job: UpdateQA
-    displayName: 'Updating Manchester QA environment manifest file'
+    displayName: 'Manchester QA'
     steps:
     - checkout: self
       persistCredentials: true
@@ -45,8 +45,21 @@ stages:
         git push origin HEAD:main
       displayName: 'Update QA manifest'
 
+- stage: Approve_QA_Update
+  displayName: 'Approve QA Update'
+  jobs:
+  - job: ApproveQA
+    steps:
+    - task: ManualValidation@0
+      timeoutInMinutes: 1440 # Task times out in 1 day
+      inputs:
+        notifyUsers: |
+          darryl.cauldwell@gmail.com
+        instructions: 'Please validate the build has passed QA and can be rolled out to UAT.'
+        onTimeout: 'reject'
+
 - stage: Update_Test_Environment
-  displayName: 'Updating Sheffield UAT environment manifest file'
+  displayName: 'Sheffield UAT'
   jobs:
   - job: UpdateUAT
     steps:
@@ -60,8 +73,21 @@ stages:
         git push origin HEAD:main
       displayName: 'Update UAT manifest'
 
+- stage: Approve_QA_Update
+  displayName: 'Approve QA Update'
+  jobs:
+  - job: ApproveQA
+    steps:
+    - task: ManualValidation@0
+      timeoutInMinutes: 1440 # Task times out in 1 day
+      inputs:
+        notifyUsers: |
+          darryl.cauldwell@gmail.com
+        instructions: 'Please validate the build has passed UAT and can be rolled out to production.'
+        onTimeout: 'reject'
+
 - stage: Update_Prod_Environment
-  displayName: 'Update Bakewell production environment manifest file'
+  displayName: 'Bakewell PROD'
   jobs:
   - job: UpdateProd
     steps:
