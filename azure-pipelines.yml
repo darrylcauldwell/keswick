@@ -5,15 +5,63 @@ pool:
   name: Default
   demands:
     - agent.name -equals Darryls-MacBook-Pro
-    
-steps:
-  - task: Docker@2
-    inputs:
-      containerRegistry: 'darrylcauldwell GHCR'
-      repository: 'darrylcauldwell/keswick'
-      command: 'buildAndPush'
-      Dockerfile: '**/Dockerfile'
-      tags: |
-        latest
-        $(Build.BuildId)
 
+stages:
+- stage: Build
+  displayName: 'Build and Push Docker Image'
+  jobs:
+  - job: DockerBuildPush
+    displayName: 'Docker Build and Push'
+    steps:
+    - task: Docker@2
+      displayName: 'Build and Push Docker Image'
+      inputs:
+        containerRegistry: 'darrylcauldwell GHCR'
+        repository: 'darrylcauldwell/keswick'
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
+        tags: |
+          latest
+          $(Build.BuildId)
+
+- stage: Update_QA_Environment
+  displayName: 'Update Manchester QA environment'
+  jobs:
+  - job: UpdateQA
+    steps:
+    - checkout: self
+      persistCredentials: true
+    - script: |
+        yq e '.spec.template.spec.containers[0].image = "ghcr.io/darrylcauldwell/keswick:$(Build.BuildId)"' -i sites/manchester/kubernetes-manifest.yaml
+        git add sites/manchester/kubernetes-manifest.yaml
+        git commit -m "Update QA manifest ref $(Build.BuildId) [skip ci]"
+        git push
+      displayName: 'Update QA manifest'
+
+- stage: Update_Test_Environment
+  displayName: 'Update Sheffield UAT environment'
+  jobs:
+  - job: UpdateUAT
+    steps:
+    - checkout: self
+      persistCredentials: true
+    - script: |
+        yq e '.spec.template.spec.containers[0].image = "ghcr.io/darrylcauldwell/keswick:$(Build.BuildId)"' -i sites/sheffield/kubernetes-manifest.yaml
+        git add sites/sheffield/kubernetes-manifest.yaml
+        git commit -m "Update UAT manifest ref $(Build.BuildId) [skip ci]"
+        git push
+      displayName: 'Update UAT manifest'
+
+- stage: Update_Prod_Environment
+  displayName: 'Update Bakewell production environment'
+  jobs:
+  - job: UpdateProd
+    steps:
+    - checkout: self
+      persistCredentials: true
+    - script: |
+        yq e '.spec.template.spec.containers[0].image = "ghcr.io/darrylcauldwell/keswick:$(Build.BuildId)"' -i sites/bakewell/kubernetes-manifest.yaml
+        git add sites/bakewell/kubernetes-manifest.yaml
+        git commit -m "Update PROD manifest ref $(Build.BuildId) [skip ci]"
+        git push
+      displayName: 'Update PROD manifest'
