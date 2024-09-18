@@ -32,7 +32,7 @@ stages:
     - checkout: self
       persistCredentials: true
     - script: |
-        yq e '.spec.template.spec.containers[0].image = "ghcr.io/darrylcauldwell/keswick:$(Build.BuildId)"' -i sites/manchester/kubernetes-manifest.yaml
+        yq e '.spec.template.spec.containers[0].image = "ghcr.io/darrylcauldwell/keswick:$(Build.BuildId)"' -i keswick/sites/manchester/kubernetes-manifest.yaml
         git add sites/manchester/kubernetes-manifest.yaml
         git commit -m "Update QA manifest ref $(Build.BuildId) [skip ci]"
         git push
@@ -46,7 +46,7 @@ stages:
     - checkout: self
       persistCredentials: true
     - script: |
-        yq e '.spec.template.spec.containers[0].image = "ghcr.io/darrylcauldwell/keswick:$(Build.BuildId)"' -i sites/sheffield/kubernetes-manifest.yaml
+        yq e '.spec.template.spec.containers[0].image = "ghcr.io/darrylcauldwell/keswick:$(Build.BuildId)"' -i keswick/sites/sheffield/kubernetes-manifest.yaml
         git add sites/sheffield/kubernetes-manifest.yaml
         git commit -m "Update UAT manifest ref $(Build.BuildId) [skip ci]"
         git push
@@ -60,7 +60,7 @@ stages:
     - checkout: self
       persistCredentials: true
     - script: |
-        yq e '.spec.template.spec.containers[0].image = "ghcr.io/darrylcauldwell/keswick:$(Build.BuildId)"' -i sites/bakewell/kubernetes-manifest.yaml
+        yq e '.spec.template.spec.containers[0].image = "ghcr.io/darrylcauldwell/keswick:$(Build.BuildId)"' -i keswick/sites/bakewell/kubernetes-manifest.yaml
         git add sites/bakewell/kubernetes-manifest.yaml
         git commit -m "Update PROD manifest ref $(Build.BuildId) [skip ci]"
         git push
