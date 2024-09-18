@@ -73,10 +73,10 @@ stages:
         git push origin HEAD:main
       displayName: 'Update UAT manifest'
 
-- stage: Approve_QA_Update
-  displayName: 'Approve QA Update'
+- stage: Approve_UAT_Update
+  displayName: 'Approve UAT Update'
   jobs:
-  - job: ApproveQA
+  - job: ApproveUAT
     steps:
     - task: ManualValidation@0
       timeoutInMinutes: 1440 # Task times out in 1 day
