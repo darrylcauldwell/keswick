@@ -1,5 +1,10 @@
 trigger:
-  - main
+  branches:
+    include:
+    - main
+  paths:
+    exclude:
+    - sites/*
 
 pool:
   name: Default
@@ -35,7 +40,7 @@ stages:
         yq e '.spec.template.spec.containers[0].image = "ghcr.io/darrylcauldwell/keswick:$(Build.BuildId)"' -i $(Build.SourcesDirectory)/sites/manchester/face-detector.yml
         git add $(Build.SourcesDirectory)/sites/manchester/face-detector.yml
         git commit -m "Update QA manifest ref $(Build.BuildId) [skip ci]"
-        git push
+        git push origin HEAD:main
       displayName: 'Update QA manifest'
 
 - stage: Update_Test_Environment
@@ -49,7 +54,7 @@ stages:
         yq e '.spec.template.spec.containers[0].image = "ghcr.io/darrylcauldwell/keswick:$(Build.BuildId)"' -i $(Build.SourcesDirectory)/sites/sheffield/face-detector.yml
         git add $(Build.SourcesDirectory)/sites/sheffield/face-detector.yml
         git commit -m "Update UAT manifest ref $(Build.BuildId) [skip ci]"
-        git push
+        git push origin HEAD:main
       displayName: 'Update UAT manifest'
 
 - stage: Update_Prod_Environment
@@ -63,5 +68,5 @@ stages:
         yq e '.spec.template.spec.containers[0].image = "ghcr.io/darrylcauldwell/keswick:$(Build.BuildId)"' -i $(Build.SourcesDirectory)/sites/bakewell/face-detector.yml
         git add $(Build.SourcesDirectory)/sites/bakewell/face-detector.yml
         git commit -m "Update PROD manifest ref $(Build.BuildId) [skip ci]"
-        git push
+        git push origin HEAD:main
       displayName: 'Update PROD manifest'
