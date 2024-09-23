@@ -6,7 +6,7 @@ spec:
   template:
     spec:
       containers:
-        - image: ghcr.io/darrylcauldwell/keswick:36
+        - image: ghcr.io/darrylcauldwell/keswick:39
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
         - name: face-detector-container
-          image: ghcr.io/darrylcauldwell/keswick:36
+          image: ghcr.io/darrylcauldwell/keswick:39
           ports:
             - containerPort: 5000
           env:
@@ -49,4 +49,4 @@ spec:
   template:
     spec:
       containers:
-        - image: ghcr.io/darrylcauldwell/keswick:36
+        - image: ghcr.io/darrylcauldwell/keswick:39
