@@ -17,6 +17,10 @@ stages:
   jobs:
   - job: DockerBuildPush
     displayName: 'Docker Build and Push'
+    variables:
+      dockerRegistry: 'ghcr.io'
+      imageName: '$(Build.Repository.Name)'
+      buildId: '$(Build.BuildId)'
     steps:
     - task: Docker@2
       inputs:
@@ -28,15 +32,16 @@ stages:
       displayName: 'Set up Docker Buildx'
     - script: |
         docker buildx build --platform linux/amd64,linux/arm64 \
-          -t $(dockerRegistry)/$(imageName):$(tag) \
-          --push \
-          .
+          -t $(dockerRegistry)/$(imageName):latest \
+          -t $(dockerRegistry)/$(imageName):$(buildId) \
+          --push .
       displayName: 'Build and push multi-arch image'
       env:
         DOCKER_CLI_EXPERIMENTAL: enabled
     - script: |
-        docker buildx imagetools inspect $(dockerRegistry)/$(imageName):$(tag)
-      displayName: 'Inspect multi-arch image'
+        docker buildx imagetools inspect $(dockerRegistry)/$(imageName):latest
+        docker buildx imagetools inspect $(dockerRegistry)/$(imageName):$(buildId)
+      displayName: 'Inspect multi-arch images'
 
 - stage: Update_QA_Environment
   displayName: 'Update Manchester QA environment'
