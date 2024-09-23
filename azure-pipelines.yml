@@ -20,7 +20,7 @@ stages:
     steps:
     - task: Docker@2
       inputs:
-        containerRegistry: ''darrylcauldwell GHCR'
+        containerRegistry: 'darrylcauldwell GHCR'
         command: 'login'
     - script: |
         docker buildx create --use --name mybuilder
