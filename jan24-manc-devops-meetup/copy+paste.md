@@ -30,3 +30,16 @@ kubectl -n face-detector get all
 kubectl -n face-detector get pods
 kubectl -n face-detector get services
 ```
+
+## Log Ship
+
+```bash
+kubectl -n log-ship get all
+
+kubectl -n log-ship rollout restart deployment log-ship-deployment
+
+kubectl exec -it pod/log-ship-deployment-b86558fc-8clf6 -- /bin/sh
+
+sudo mount -t nfs 192.168.1.201:/nfs_share /Users/darrylcauldwell/mount/nfs
+cp /path/to/local/file /mount/point/destination/
+```

@@ -2,11 +2,7 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: log-ship
-spec:
-  template:
-    spec:
-      containers:
-        - image: ghcr.io/darrylcauldwell/log-shipper:latest
+
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -28,7 +24,12 @@ spec:
           image: ghcr.io/darrylcauldwell/log-shipper:latest
           ports:
             - containerPort: 2049
+            - containerPort: 111
+            - containerPort: 20048
+          securityContext:
+            privileged: true
           imagePullPolicy: Always
+
 ---
 apiVersion: v1
 kind: Service
@@ -39,11 +40,20 @@ spec:
   selector:
     app: log-ship
   ports:
-    - protocol: TCP
+    - name: nfs
+      protocol: TCP
       port: 2049
       targetPort: 2049
+    - name: rpcbind
+      protocol: TCP
+      port: 111
+      targetPort: 111
+    - name: rpcbind-udp
+      protocol: UDP
+      port: 111
+      targetPort: 111
+    - name: mountd
+      protocol: TCP
+      port: 20048
+      targetPort: 20048
   type: LoadBalancer
-  template:
-    spec:
-      containers:
-        - image: ghcr.io/darrylcauldwell/log-shipper:latest
