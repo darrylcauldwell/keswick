@@ -3,8 +3,8 @@ trigger:
     include:
     - main
   paths:
-    exclude:
-    - sites/*
+    include:
+    - face-detector/*
 
 pool:
   name: Default
@@ -29,6 +29,7 @@ stages:
         containerRegistry: 'darrylcauldwell GHCR'
         command: 'login'
     - script: |
+        export DOCKER_HOST=unix://$HOME/.docker/run/docker.sock
         docker buildx create --use --name mybuilder
         docker buildx inspect --bootstrap
       displayName: 'Set up Docker Buildx'
