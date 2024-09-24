@@ -1,9 +1,14 @@
-# Use the latest Alpine Linux as the base image
-FROM alpine:latest
+# Use Ubuntu 22.04 LTS as the base image
+FROM ubuntu:22.04
 
-# Install NFS utilities without caching the index of available packages
-# This keeps the image size smaller
-RUN apk add --no-cache nfs-utils
+# Avoid prompts from apt
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Update package lists and install NFS server
+RUN apt-get update && \
+    apt-get install -y nfs-kernel-server && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Create a directory to be used as the NFS share
 RUN mkdir -p /nfs_share
@@ -27,5 +32,8 @@ COPY start.sh /start.sh
 # Make the startup script executable
 RUN chmod +x /start.sh
 
-# Inititate script 
+# Expose NFS ports
+EXPOSE 111/tcp 111/udp 2049/tcp 2049/udp
+
+# Initiate script 
 ENTRYPOINT ["/start.sh"]
