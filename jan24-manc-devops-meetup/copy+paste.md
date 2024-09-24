@@ -28,6 +28,7 @@ kubectl get vm -o wide
 ```bash
 kubectl -n face-detector get all
 kubectl -n face-detector get pods
+kubectl -n face-detector get pods -o custom-columns='NAME:.metadata.name,IMAGE:.spec.containers[*].image'
 kubectl -n face-detector get services
 ```
 
