@@ -2,7 +2,7 @@
 
 A base container with NFS and a log forwarder script.
 
-## Build and test
+## Build and push
 
 ```bash
 export CR_PAT=<personal access token>
