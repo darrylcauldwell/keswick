@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # Update package lists and install NFS server
 RUN apt-get update && \
-    apt-get install -y nfs-kernel-server && \
+    apt-get install -y nfs-kernel-server inotify-tools && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 

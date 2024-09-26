@@ -6,9 +6,9 @@
 /usr/sbin/rpc.nfsd
 /usr/sbin/rpc.mountd
 
-# Update package list and install inotify-tools
-apt-get update
-apt-get install -y inotify-tools
+# Output a message to indicate started
+echo "I'm started and ready for accepting incoming files to NFS"
+echo "*********************************************************"
 
 # Monitor NFS share for new files
 inotifywait -m /nfs_share -e create -e moved_to |
