@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Start NFS server
 /usr/sbin/exportfs -r
@@ -6,8 +6,9 @@
 /usr/sbin/rpc.nfsd
 /usr/sbin/rpc.mountd
 
-# Install inotify-tools
-apk add --no-cache inotify-tools
+# Update package list and install inotify-tools
+apt-get update
+apt-get install -y inotify-tools
 
 # Monitor NFS share for new files
 inotifywait -m /nfs_share -e create -e moved_to |
