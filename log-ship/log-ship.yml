@@ -29,6 +29,12 @@ spec:
           securityContext:
             privileged: true
           imagePullPolicy: Always
+          volumeMounts:
+            - name: nfs-share
+              mountPath: /nfs_share
+      volumes:
+        - name: nfs-share
+          emptyDir: {}
 
 ---
 apiVersion: v1
