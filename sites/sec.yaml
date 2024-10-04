@@ -1,9 +1,12 @@
-
-
-
-
-{   
-    "profile": {
+apiVersion: esx.vmware.com/v1alpha1
+kind: HostConfiguration
+metadata:
+  name: keswick-host-config
+  namespace: esx-system
+spec:
+  layertype: Incremental
+  profile: |
+    {
         "esx": {
             "esx_update":{
                 "software":{
@@ -67,5 +70,4 @@
             }
         }
     }
-}
 
