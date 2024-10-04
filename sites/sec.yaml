@@ -28,7 +28,7 @@ spec:
                     "ntp_config": {
                         "server": [
                             {
-                                "hostname": "192.168.0.253",
+                                "hostname": "0.pool.ntp.org",
                                 "command": "SERVER"
                             }
                         ]
@@ -41,7 +41,7 @@ spec:
                         "log_host": [
                             {
                                 "protocol": "UDP",
-                                "address": "192.168.1.200"
+                                "address": "192.168.1.100"
                             }
                         ]
                     },
