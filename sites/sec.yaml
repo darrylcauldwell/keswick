@@ -1,0 +1,71 @@
+
+
+
+
+{   
+    "profile": {
+        "esx": {
+            "esx_update":{
+                "software":{
+                    "acceptance_level": {
+                        "level": "VMWARE_CERTIFIED"
+                    }
+                }
+            },
+            "advanced_options":{
+                "mem":{
+                    "option_name": "ShareForceSalting",
+                    "integer_value": 2
+                }
+            },
+            "system": {
+                "system_time": {
+                    "enabled": true,
+                    "protocol": "NTP",
+                    "ntp_config": {
+                        "server": [
+                            {
+                                "hostname": "192.168.0.253",
+                                "command": "SERVER"
+                            }
+                        ]
+                    }
+                }
+            },
+            "syslog":{
+                "global_settings":{
+                    "remote_logging": {
+                        "log_host": [
+                            {
+                                "protocol": "UDP",
+                                "address": "192.168.1.200"
+                            }
+                        ]
+                    },
+                    "remote_host_max_msg_len": 4096
+                }
+            },
+            "security":{
+                "settings":{
+                    "account_unlock_time": 15,
+                    "account_lock_failures": 5
+                }
+            },
+            "network_vss":{
+                "switches": [
+                    {
+                        "name": "vSwitch",
+                        "policy": {
+                            "security": {
+                                "mac_changes": false,
+                                "forged_transmits": false,
+                                "allow_promiscuous": false
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}
+
