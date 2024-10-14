@@ -30,7 +30,7 @@ spec:
             - containerPort: 5000
           env:
             - name: RTSP_URL
-              value: rtsp://darryl:cauldwell@192.168.1.127/stream2
+              value: rtsp://darryl:cauldwell@192.168.188.11/stream2
           imagePullPolicy: Always
 ---
 apiVersion: v1
