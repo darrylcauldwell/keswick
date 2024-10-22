@@ -3,12 +3,11 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: edge-llm
-
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: edge-llm
+  name: edge-llm-deployment
   namespace: edge-llm
 spec:
   replicas: 1
@@ -22,11 +21,49 @@ spec:
     spec:
       containers:
       - name: edge-llm
-        image: edge-llm:latest
+        image: ghcr.io/darrylcauldwell/edge-llm:latest
         ports:
         - containerPort: 11434
+        resources:
+          requests:
+            memory: "4Gi"
+            cpu: "2"
+          limits:
+            memory: "8Gi"
+            cpu: "4"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openwebui-deployment
+  namespace: edge-llm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: openwebui
+  template:
+    metadata:
+      labels:
+        app: openwebui
+    spec:
+      containers:
+      - name: openwebui
+        image: ghcr.io/open-webui/open-webui:main
+        ports:
         - containerPort: 8080
-
+        env:
+        - name: OLLAMA_BASE_URL
+          value: "http://edge-llm-service:11434"
+        - name: WEBUI_AUTH
+          value: "False"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "0.5"
+          limits:
+            memory: "512Mi"
+            cpu: "1"
 ---
 apiVersion: v1
 kind: Service
@@ -34,13 +71,23 @@ metadata:
   name: edge-llm-service
   namespace: edge-llm
 spec:
-  type: LoadBalancer
   selector:
     app: edge-llm
   ports:
-  - port: 80
-    targetPort: 8080
-    name: webui
-  - port: 11434
+  - protocol: TCP
+    port: 11434
     targetPort: 11434
-    name: ollama
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: openwebui-service
+  namespace: edge-llm
+spec:
+  selector:
+    app: openwebui
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
+  type: LoadBalancer
