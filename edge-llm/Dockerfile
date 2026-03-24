@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y wget
 # Start Ollama server, pull the model, then stop the server
 RUN ollama serve & \
     sleep 10 && \
-    ollama pull llama3.1:8b && \
+    ollama pull phi3 && \
     pkill ollama
 
 # Expose the Ollama port
